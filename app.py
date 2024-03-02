@@ -19,12 +19,17 @@ import streamlit as st
 from openai import OpenAI
 import re
 
-from utilities import load_config, create_conn_and_cursor, add_token_usage_to_db
+from utilities import load_config, create_conn_and_cursor, add_token_usage_to_db, display_token_usage_in_sidebar, copy_db
 
 
 # ------------------------------
-## Functions
+## Sesstion states
 # ------------------------------
+# Check if db_copied exists in sesston state, if not, create it
+if "db_copied" not in st.session_state:
+    copy_db()
+
+    st.session_state.db_copied = True
 
 # ------------------------------
 ## Application
@@ -38,30 +43,7 @@ client = OpenAI()
 # Sidebar
 st.sidebar.header(config["streamlit_app"]["sidebar_title"])
 
-# Query to sum up prompt_tokens and completion_tokens separately
-sql_query = """
-SELECT SUM(prompt_tokens) AS total_prompt_tokens,
-       SUM(completion_tokens) AS total_completion_tokens
-FROM usage;
-"""
-
-conn, cursor = create_conn_and_cursor()
-
-# Execute the query
-cursor.execute(sql_query)
-
-# Fetch the result
-result = cursor.fetchone()
-
-# Display the summed up values
-total_prompt_tokens = result[0] if result[0] is not None else 0
-total_completion_tokens = result[1] if result[1] is not None else 0
-
-conn.close()
-
-st.sidebar.write(f"Total prompt tokens: {total_prompt_tokens}")
-
-st.sidebar.write(f"Total completion tokens: {total_completion_tokens}")
+display_token_usage_in_sidebar()
 
 
 st.title(config["streamlit_app"]["title"])
@@ -76,7 +58,7 @@ if submit:
 
     system_message = config["gpt"]["system_message"]
 
-    user_message = config["gpt"]["user_message"].replace("{{question}}", question)
+    user_message = config["gpt"]["user_message"].format(question=question)
 
     # OpenAI Api ref: https://platform.openai.com/docs/api-reference/chat?lang=python
     model = config["gpt"]["model"]
@@ -89,7 +71,8 @@ if submit:
     with st.spinner("Please wait, the AI is thinking..."):
         response = client.chat.completions.create(
             model=model,
-            messages=messages
+            messages=messages,
+            temperature=0,
         )
 
     answer = response.choices[0].message.content
@@ -113,7 +96,7 @@ if submit:
 
         # print replay rowwise using st.write
         for row in replay:
-            st.write(row)
+            st.markdown(row)
 
         with st.expander("SQL Query"):
             st.write(this_query)

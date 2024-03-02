@@ -1,9 +1,13 @@
 # utilities.py
 # 2024-03-01, JK
 # This file provides utility functions for this project.
-import yaml
 import sqlite3
 import datetime
+
+import streamlit as st
+import yaml
+import os
+import shutil
 
 
 filename_config = "config.yaml"
@@ -16,8 +20,11 @@ def load_config():
 
 config = load_config()
 
-def create_conn_and_cursor():
-    conn = sqlite3.connect(config["filenames"]["filename_db"])
+def create_conn_and_cursor(use_copy=False):
+    if not use_copy:
+        conn = sqlite3.connect(config["filenames"]["filename_db"])
+    else:
+        conn = sqlite3.connect(config["filenames"]["filename_dispoable_db"])
     
     cursor = conn.cursor()
 
@@ -36,16 +43,22 @@ def add_token_usage_to_db(conn, cursor, prompt_tokens, completion_tokens):
     cursor.execute(insert_command, (date_timestamp_ms, prompt_tokens, completion_tokens))
     conn.commit()
 
-def display_token_usage_in_sidebar(sql_query):
+def display_token_usage_in_sidebar():
     conn, cursor = create_conn_and_cursor()
 
-# Execute the query
+    sql_query = """
+    SELECT SUM(prompt_tokens) AS total_prompt_tokens,
+        SUM(completion_tokens) AS total_completion_tokens
+    FROM usage;
+    """
+
+    # Execute the query
     cursor.execute(sql_query)
 
-# Fetch the result
+    # Fetch the result
     result = cursor.fetchone()
 
-# Display the summed up values
+    # Display the summed up values
     total_prompt_tokens = result[0] if result[0] is not None else 0
     total_completion_tokens = result[1] if result[1] is not None else 0
 
@@ -55,4 +68,14 @@ def display_token_usage_in_sidebar(sql_query):
 
     st.sidebar.write(f"Total completion tokens: {total_completion_tokens}")
 
-    
+def copy_db():
+# delete file with filename_dispoable_db
+    filename_dispoable_db = config["filenames"]["filename_dispoable_db"]
+
+    if os.path.exists(filename_dispoable_db):
+        os.remove(filename_dispoable_db)
+
+    # copy filename_db to filename_dispoable_db
+    filename_db = config["filenames"]["filename_db"]
+
+    shutil.copyfile(filename_db, filename_dispoable_db)

@@ -8,7 +8,7 @@ streamlit_app:
 gpt:
   model: "gpt-3.5-turbo-0125"
   user_message: |
-    Question: {{question}}\n
+    Question: {question}\n
     Answer: 
   system_message: |
     # Your task\n
