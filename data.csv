@@ -1,0 +1,5 @@
+firstname;sex;bithyear;grade
+TEXT;TEXT;INT;INT
+Johan;M;1980;A
+Claudia;F;1981;B
+Georg;D;1982;B
