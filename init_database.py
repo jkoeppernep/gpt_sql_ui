@@ -41,6 +41,16 @@ with open(filename_csv, "r") as csvfile:
     for row in reader:
         cursor.execute(insert_sql, row)
 
+    sql_command = """
+    CREATE TABLE IF NOT EXISTS usage (
+        date_timestamp_ms BIGINT,
+        prompt_tokens INT,
+        completion_tokens INT
+    );
+    """
+
+    cursor.execute(sql_command)
+
 # Commit the changes to the database
 conn.commit()
 
