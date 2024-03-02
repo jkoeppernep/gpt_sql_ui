@@ -2,3 +2,4 @@ ipykernel
 openai
 langchain
 pyyaml
+streamlit

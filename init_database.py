@@ -4,8 +4,7 @@
 import sqlite3
 import os
 import csv
-from utilities import load_config
-
+from utilities import load_config, create_conn_and_cursor
 
 
 # Load the configuration from the config.yaml file
@@ -19,8 +18,7 @@ if os.path.exists(filename_sqlite):
     os.remove(filename_sqlite)
 
 # Connect to the SQLite database (this creates the database file if it does not exist)
-conn = sqlite3.connect(filename_sqlite)
-cursor = conn.cursor()
+conn, cursor = create_conn_and_cursor()
 
 # Read the CSV file to determine its structure
 with open(filename_csv, "r") as csvfile:
