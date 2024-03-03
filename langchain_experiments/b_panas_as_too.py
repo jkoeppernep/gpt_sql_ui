@@ -8,6 +8,8 @@ from langchain_openai.chat_models import ChatOpenAI
 from langchain.output_parsers import JsonOutputToolsParser
 from langchain.output_parsers import JsonOutputKeyToolsParser
 from operator import itemgetter
+from langchain import hub
+from langchain.agents import AgentExecutor, create_openai_tools_agent
 
 
 @tool
@@ -46,4 +48,6 @@ chain = (
 
 chain.invoke("What's four times five")
 
+print(chain.invoke("What's four times the number of days in January?"))
 
+# Agent for colling the tool multiple times depending on the input
