@@ -110,10 +110,14 @@ json_sql_prompt = PromptTemplate(
 
 chain = json_sql_prompt | llm | parser
 
+answers = []
+
 for this_task in tasks:
     print(
-        chain.invoke({"task": f"{this_task}"})
+        this_answer := chain.invoke({"task": f"{this_task}"})
     )
+
+    answers.append(this_answer)
 
 
 
