@@ -1,0 +1,1098 @@
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor] Entering Chain run with input:
+[0m{
+  "input": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result"
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 3:chain:RunnableAssign<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 3:chain:RunnableAssign<agent_scratchpad> > 4:chain:RunnableParallel<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 3:chain:RunnableAssign<agent_scratchpad> > 4:chain:RunnableParallel<agent_scratchpad> > 5:chain:RunnableLambda] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 3:chain:RunnableAssign<agent_scratchpad> > 4:chain:RunnableParallel<agent_scratchpad> > 5:chain:RunnableLambda] [2ms] Exiting Chain run with output:
+[0m{
+  "output": []
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 3:chain:RunnableAssign<agent_scratchpad> > 4:chain:RunnableParallel<agent_scratchpad>] [3ms] Exiting Chain run with output:
+[0m{
+  "agent_scratchpad": []
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 3:chain:RunnableAssign<agent_scratchpad>] [6ms] Exiting Chain run with output:
+[0m{
+  "input": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result",
+  "intermediate_steps": [],
+  "agent_scratchpad": []
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 6:prompt:ChatPromptTemplate] Entering Prompt run with input:
+[0m{
+  "input": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result",
+  "intermediate_steps": [],
+  "agent_scratchpad": []
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 6:prompt:ChatPromptTemplate] [1ms] Exiting Prompt run with output:
+[0m{
+  "lc": 1,
+  "type": "constructor",
+  "id": [
+    "langchain",
+    "prompts",
+    "chat",
+    "ChatPromptValue"
+  ],
+  "kwargs": {
+    "messages": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "SystemMessage"
+        ],
+        "kwargs": {
+          "content": "You are a helpful assistant",
+          "additional_kwargs": {}
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result",
+          "additional_kwargs": {}
+        }
+      }
+    ]
+  }
+}
+[32;1m[1;3m[llm/start][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 7:llm:ChatOpenAI] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "System: You are a helpful assistant\nHuman: Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result"
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 7:llm:ChatOpenAI] [1.78s] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": "",
+        "generation_info": {
+          "finish_reason": "tool_calls"
+        },
+        "type": "ChatGenerationChunk",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessageChunk"
+          ],
+          "kwargs": {
+            "content": "",
+            "example": false,
+            "additional_kwargs": {
+              "tool_calls": [
+                {
+                  "index": 0,
+                  "id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+                  "function": {
+                    "arguments": "{\"base\": 3, \"exponent\": 5}",
+                    "name": "exponentiate"
+                  },
+                  "type": "function"
+                },
+                {
+                  "index": 1,
+                  "id": "call_KMtss4vZIuVehBllqHjktWQV",
+                  "function": {
+                    "arguments": "{\"first_int\": 12, \"second_int\": 3}",
+                    "name": "add"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": null,
+  "run": null
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 8:parser:OpenAIToolsAgentOutputParser] Entering Parser run with input:
+[0m[inputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence > 8:parser:OpenAIToolsAgentOutputParser] [1ms] Exiting Parser run with output:
+[0m{
+  "output": [
+    {
+      "lc": 1,
+      "type": "constructor",
+      "id": [
+        "langchain",
+        "schema",
+        "agent",
+        "OpenAIToolAgentAction"
+      ],
+      "kwargs": {
+        "tool": "exponentiate",
+        "tool_input": {
+          "base": 3,
+          "exponent": 5
+        },
+        "log": "\nInvoking: `exponentiate` with `{'base': 3, 'exponent': 5}`\n\n\n",
+        "message_log": [
+          {
+            "lc": 1,
+            "type": "constructor",
+            "id": [
+              "langchain",
+              "schema",
+              "messages",
+              "AIMessageChunk"
+            ],
+            "kwargs": {
+              "content": "",
+              "example": false,
+              "additional_kwargs": {
+                "tool_calls": [
+                  {
+                    "index": 0,
+                    "id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+                    "function": {
+                      "arguments": "{\"base\": 3, \"exponent\": 5}",
+                      "name": "exponentiate"
+                    },
+                    "type": "function"
+                  },
+                  {
+                    "index": 1,
+                    "id": "call_KMtss4vZIuVehBllqHjktWQV",
+                    "function": {
+                      "arguments": "{\"first_int\": 12, \"second_int\": 3}",
+                      "name": "add"
+                    },
+                    "type": "function"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "tool_call_id": "call_HKsrWmD4UVnY8IWMHauDMN8Y"
+      }
+    },
+    {
+      "lc": 1,
+      "type": "constructor",
+      "id": [
+        "langchain",
+        "schema",
+        "agent",
+        "OpenAIToolAgentAction"
+      ],
+      "kwargs": {
+        "tool": "add",
+        "tool_input": {
+          "first_int": 12,
+          "second_int": 3
+        },
+        "log": "\nInvoking: `add` with `{'first_int': 12, 'second_int': 3}`\n\n\n",
+        "message_log": [
+          {
+            "lc": 1,
+            "type": "constructor",
+            "id": [
+              "langchain",
+              "schema",
+              "messages",
+              "AIMessageChunk"
+            ],
+            "kwargs": {
+              "content": "",
+              "example": false,
+              "additional_kwargs": {
+                "tool_calls": [
+                  {
+                    "index": 0,
+                    "id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+                    "function": {
+                      "arguments": "{\"base\": 3, \"exponent\": 5}",
+                      "name": "exponentiate"
+                    },
+                    "type": "function"
+                  },
+                  {
+                    "index": 1,
+                    "id": "call_KMtss4vZIuVehBllqHjktWQV",
+                    "function": {
+                      "arguments": "{\"first_int\": 12, \"second_int\": 3}",
+                      "name": "add"
+                    },
+                    "type": "function"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "tool_call_id": "call_KMtss4vZIuVehBllqHjktWQV"
+      }
+    }
+  ]
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 2:chain:RunnableSequence] [1.80s] Exiting Chain run with output:
+[0m[outputs]
+[32;1m[1;3m[tool/start][0m [1m[1:chain:AgentExecutor > 9:tool:exponentiate] Entering Tool run with input:
+[0m"{'base': 3, 'exponent': 5}"
+[36;1m[1;3m[tool/end][0m [1m[1:chain:AgentExecutor > 9:tool:exponentiate] [0ms] Exiting Tool run with output:
+[0m"243"
+[32;1m[1;3m[tool/start][0m [1m[1:chain:AgentExecutor > 10:tool:add] Entering Tool run with input:
+[0m"{'first_int': 12, 'second_int': 3}"
+[36;1m[1;3m[tool/end][0m [1m[1:chain:AgentExecutor > 10:tool:add] [0ms] Exiting Tool run with output:
+[0m"15"
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 12:chain:RunnableAssign<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 12:chain:RunnableAssign<agent_scratchpad> > 13:chain:RunnableParallel<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 12:chain:RunnableAssign<agent_scratchpad> > 13:chain:RunnableParallel<agent_scratchpad> > 14:chain:RunnableLambda] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 12:chain:RunnableAssign<agent_scratchpad> > 13:chain:RunnableParallel<agent_scratchpad> > 14:chain:RunnableLambda] [0ms] Exiting Chain run with output:
+[0m[outputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 12:chain:RunnableAssign<agent_scratchpad> > 13:chain:RunnableParallel<agent_scratchpad>] [0ms] Exiting Chain run with output:
+[0m[outputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 12:chain:RunnableAssign<agent_scratchpad>] [0ms] Exiting Chain run with output:
+[0m[outputs]
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 15:prompt:ChatPromptTemplate] Entering Prompt run with input:
+[0m[inputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 15:prompt:ChatPromptTemplate] [0ms] Exiting Prompt run with output:
+[0m{
+  "lc": 1,
+  "type": "constructor",
+  "id": [
+    "langchain",
+    "prompts",
+    "chat",
+    "ChatPromptValue"
+  ],
+  "kwargs": {
+    "messages": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "SystemMessage"
+        ],
+        "kwargs": {
+          "content": "You are a helpful assistant",
+          "additional_kwargs": {}
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result",
+          "additional_kwargs": {}
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "AIMessageChunk"
+        ],
+        "kwargs": {
+          "content": "",
+          "example": false,
+          "additional_kwargs": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+                "function": {
+                  "arguments": "{\"base\": 3, \"exponent\": 5}",
+                  "name": "exponentiate"
+                },
+                "type": "function"
+              },
+              {
+                "index": 1,
+                "id": "call_KMtss4vZIuVehBllqHjktWQV",
+                "function": {
+                  "arguments": "{\"first_int\": 12, \"second_int\": 3}",
+                  "name": "add"
+                },
+                "type": "function"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "243",
+          "tool_call_id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+          "additional_kwargs": {
+            "name": "exponentiate"
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "15",
+          "tool_call_id": "call_KMtss4vZIuVehBllqHjktWQV",
+          "additional_kwargs": {
+            "name": "add"
+          }
+        }
+      }
+    ]
+  }
+}
+[32;1m[1;3m[llm/start][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 16:llm:ChatOpenAI] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "System: You are a helpful assistant\nHuman: Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result\nAI: \nTool: 243\nTool: 15"
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 16:llm:ChatOpenAI] [599ms] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": "",
+        "generation_info": {
+          "finish_reason": "tool_calls"
+        },
+        "type": "ChatGenerationChunk",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessageChunk"
+          ],
+          "kwargs": {
+            "content": "",
+            "example": false,
+            "additional_kwargs": {
+              "tool_calls": [
+                {
+                  "index": 0,
+                  "id": "call_Impj3S6rE1yliBiiTQeIGi7u",
+                  "function": {
+                    "arguments": "{\"first_int\":243,\"second_int\":15}",
+                    "name": "multiply"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": null,
+  "run": null
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 17:parser:OpenAIToolsAgentOutputParser] Entering Parser run with input:
+[0m[inputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence > 17:parser:OpenAIToolsAgentOutputParser] [0ms] Exiting Parser run with output:
+[0m{
+  "output": [
+    {
+      "lc": 1,
+      "type": "constructor",
+      "id": [
+        "langchain",
+        "schema",
+        "agent",
+        "OpenAIToolAgentAction"
+      ],
+      "kwargs": {
+        "tool": "multiply",
+        "tool_input": {
+          "first_int": 243,
+          "second_int": 15
+        },
+        "log": "\nInvoking: `multiply` with `{'first_int': 243, 'second_int': 15}`\n\n\n",
+        "message_log": [
+          {
+            "lc": 1,
+            "type": "constructor",
+            "id": [
+              "langchain",
+              "schema",
+              "messages",
+              "AIMessageChunk"
+            ],
+            "kwargs": {
+              "content": "",
+              "example": false,
+              "additional_kwargs": {
+                "tool_calls": [
+                  {
+                    "index": 0,
+                    "id": "call_Impj3S6rE1yliBiiTQeIGi7u",
+                    "function": {
+                      "arguments": "{\"first_int\":243,\"second_int\":15}",
+                      "name": "multiply"
+                    },
+                    "type": "function"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "tool_call_id": "call_Impj3S6rE1yliBiiTQeIGi7u"
+      }
+    }
+  ]
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 11:chain:RunnableSequence] [599ms] Exiting Chain run with output:
+[0m[outputs]
+[32;1m[1;3m[tool/start][0m [1m[1:chain:AgentExecutor > 18:tool:multiply] Entering Tool run with input:
+[0m"{'first_int': 243, 'second_int': 15}"
+[36;1m[1;3m[tool/end][0m [1m[1:chain:AgentExecutor > 18:tool:multiply] [0ms] Exiting Tool run with output:
+[0m"3645"
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 20:chain:RunnableAssign<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 20:chain:RunnableAssign<agent_scratchpad> > 21:chain:RunnableParallel<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 20:chain:RunnableAssign<agent_scratchpad> > 21:chain:RunnableParallel<agent_scratchpad> > 22:chain:RunnableLambda] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 20:chain:RunnableAssign<agent_scratchpad> > 21:chain:RunnableParallel<agent_scratchpad> > 22:chain:RunnableLambda] [16ms] Exiting Chain run with output:
+[0m[outputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 20:chain:RunnableAssign<agent_scratchpad> > 21:chain:RunnableParallel<agent_scratchpad>] [16ms] Exiting Chain run with output:
+[0m[outputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 20:chain:RunnableAssign<agent_scratchpad>] [16ms] Exiting Chain run with output:
+[0m[outputs]
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 23:prompt:ChatPromptTemplate] Entering Prompt run with input:
+[0m[inputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 23:prompt:ChatPromptTemplate] [0ms] Exiting Prompt run with output:
+[0m{
+  "lc": 1,
+  "type": "constructor",
+  "id": [
+    "langchain",
+    "prompts",
+    "chat",
+    "ChatPromptValue"
+  ],
+  "kwargs": {
+    "messages": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "SystemMessage"
+        ],
+        "kwargs": {
+          "content": "You are a helpful assistant",
+          "additional_kwargs": {}
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result",
+          "additional_kwargs": {}
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "AIMessageChunk"
+        ],
+        "kwargs": {
+          "content": "",
+          "example": false,
+          "additional_kwargs": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+                "function": {
+                  "arguments": "{\"base\": 3, \"exponent\": 5}",
+                  "name": "exponentiate"
+                },
+                "type": "function"
+              },
+              {
+                "index": 1,
+                "id": "call_KMtss4vZIuVehBllqHjktWQV",
+                "function": {
+                  "arguments": "{\"first_int\": 12, \"second_int\": 3}",
+                  "name": "add"
+                },
+                "type": "function"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "243",
+          "tool_call_id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+          "additional_kwargs": {
+            "name": "exponentiate"
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "15",
+          "tool_call_id": "call_KMtss4vZIuVehBllqHjktWQV",
+          "additional_kwargs": {
+            "name": "add"
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "AIMessageChunk"
+        ],
+        "kwargs": {
+          "content": "",
+          "example": false,
+          "additional_kwargs": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_Impj3S6rE1yliBiiTQeIGi7u",
+                "function": {
+                  "arguments": "{\"first_int\":243,\"second_int\":15}",
+                  "name": "multiply"
+                },
+                "type": "function"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "3645",
+          "tool_call_id": "call_Impj3S6rE1yliBiiTQeIGi7u",
+          "additional_kwargs": {
+            "name": "multiply"
+          }
+        }
+      }
+    ]
+  }
+}
+[32;1m[1;3m[llm/start][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 24:llm:ChatOpenAI] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "System: You are a helpful assistant\nHuman: Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result\nAI: \nTool: 243\nTool: 15\nAI: \nTool: 3645"
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 24:llm:ChatOpenAI] [612ms] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": "",
+        "generation_info": {
+          "finish_reason": "tool_calls"
+        },
+        "type": "ChatGenerationChunk",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessageChunk"
+          ],
+          "kwargs": {
+            "content": "",
+            "example": false,
+            "additional_kwargs": {
+              "tool_calls": [
+                {
+                  "index": 0,
+                  "id": "call_hCiQTyoZTLJFsHT0yUioHEBN",
+                  "function": {
+                    "arguments": "{\"base\":3645,\"exponent\":2}",
+                    "name": "exponentiate"
+                  },
+                  "type": "function"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": null,
+  "run": null
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 25:parser:OpenAIToolsAgentOutputParser] Entering Parser run with input:
+[0m[inputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence > 25:parser:OpenAIToolsAgentOutputParser] [0ms] Exiting Parser run with output:
+[0m{
+  "output": [
+    {
+      "lc": 1,
+      "type": "constructor",
+      "id": [
+        "langchain",
+        "schema",
+        "agent",
+        "OpenAIToolAgentAction"
+      ],
+      "kwargs": {
+        "tool": "exponentiate",
+        "tool_input": {
+          "base": 3645,
+          "exponent": 2
+        },
+        "log": "\nInvoking: `exponentiate` with `{'base': 3645, 'exponent': 2}`\n\n\n",
+        "message_log": [
+          {
+            "lc": 1,
+            "type": "constructor",
+            "id": [
+              "langchain",
+              "schema",
+              "messages",
+              "AIMessageChunk"
+            ],
+            "kwargs": {
+              "content": "",
+              "example": false,
+              "additional_kwargs": {
+                "tool_calls": [
+                  {
+                    "index": 0,
+                    "id": "call_hCiQTyoZTLJFsHT0yUioHEBN",
+                    "function": {
+                      "arguments": "{\"base\":3645,\"exponent\":2}",
+                      "name": "exponentiate"
+                    },
+                    "type": "function"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "tool_call_id": "call_hCiQTyoZTLJFsHT0yUioHEBN"
+      }
+    }
+  ]
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 19:chain:RunnableSequence] [627ms] Exiting Chain run with output:
+[0m[outputs]
+[32;1m[1;3m[tool/start][0m [1m[1:chain:AgentExecutor > 26:tool:exponentiate] Entering Tool run with input:
+[0m"{'base': 3645, 'exponent': 2}"
+[36;1m[1;3m[tool/end][0m [1m[1:chain:AgentExecutor > 26:tool:exponentiate] [0ms] Exiting Tool run with output:
+[0m"13286025"
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 28:chain:RunnableAssign<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 28:chain:RunnableAssign<agent_scratchpad> > 29:chain:RunnableParallel<agent_scratchpad>] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 28:chain:RunnableAssign<agent_scratchpad> > 29:chain:RunnableParallel<agent_scratchpad> > 30:chain:RunnableLambda] Entering Chain run with input:
+[0m{
+  "input": ""
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 28:chain:RunnableAssign<agent_scratchpad> > 29:chain:RunnableParallel<agent_scratchpad> > 30:chain:RunnableLambda] [0ms] Exiting Chain run with output:
+[0m[outputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 28:chain:RunnableAssign<agent_scratchpad> > 29:chain:RunnableParallel<agent_scratchpad>] [0ms] Exiting Chain run with output:
+[0m[outputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 28:chain:RunnableAssign<agent_scratchpad>] [0ms] Exiting Chain run with output:
+[0m[outputs]
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 31:prompt:ChatPromptTemplate] Entering Prompt run with input:
+[0m[inputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 31:prompt:ChatPromptTemplate] [0ms] Exiting Prompt run with output:
+[0m{
+  "lc": 1,
+  "type": "constructor",
+  "id": [
+    "langchain",
+    "prompts",
+    "chat",
+    "ChatPromptValue"
+  ],
+  "kwargs": {
+    "messages": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "SystemMessage"
+        ],
+        "kwargs": {
+          "content": "You are a helpful assistant",
+          "additional_kwargs": {}
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "HumanMessage"
+        ],
+        "kwargs": {
+          "content": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result",
+          "additional_kwargs": {}
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "AIMessageChunk"
+        ],
+        "kwargs": {
+          "content": "",
+          "example": false,
+          "additional_kwargs": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+                "function": {
+                  "arguments": "{\"base\": 3, \"exponent\": 5}",
+                  "name": "exponentiate"
+                },
+                "type": "function"
+              },
+              {
+                "index": 1,
+                "id": "call_KMtss4vZIuVehBllqHjktWQV",
+                "function": {
+                  "arguments": "{\"first_int\": 12, \"second_int\": 3}",
+                  "name": "add"
+                },
+                "type": "function"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "243",
+          "tool_call_id": "call_HKsrWmD4UVnY8IWMHauDMN8Y",
+          "additional_kwargs": {
+            "name": "exponentiate"
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "15",
+          "tool_call_id": "call_KMtss4vZIuVehBllqHjktWQV",
+          "additional_kwargs": {
+            "name": "add"
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "AIMessageChunk"
+        ],
+        "kwargs": {
+          "content": "",
+          "example": false,
+          "additional_kwargs": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_Impj3S6rE1yliBiiTQeIGi7u",
+                "function": {
+                  "arguments": "{\"first_int\":243,\"second_int\":15}",
+                  "name": "multiply"
+                },
+                "type": "function"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "3645",
+          "tool_call_id": "call_Impj3S6rE1yliBiiTQeIGi7u",
+          "additional_kwargs": {
+            "name": "multiply"
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "AIMessageChunk"
+        ],
+        "kwargs": {
+          "content": "",
+          "example": false,
+          "additional_kwargs": {
+            "tool_calls": [
+              {
+                "index": 0,
+                "id": "call_hCiQTyoZTLJFsHT0yUioHEBN",
+                "function": {
+                  "arguments": "{\"base\":3645,\"exponent\":2}",
+                  "name": "exponentiate"
+                },
+                "type": "function"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "messages",
+          "ToolMessage"
+        ],
+        "kwargs": {
+          "content": "13286025",
+          "tool_call_id": "call_hCiQTyoZTLJFsHT0yUioHEBN",
+          "additional_kwargs": {
+            "name": "exponentiate"
+          }
+        }
+      }
+    ]
+  }
+}
+[32;1m[1;3m[llm/start][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 32:llm:ChatOpenAI] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "System: You are a helpful assistant\nHuman: Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result\nAI: \nTool: 243\nTool: 15\nAI: \nTool: 3645\nAI: \nTool: 13286025"
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 32:llm:ChatOpenAI] [1.26s] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": "The result of taking 3 to the fifth power and multiplying that by the sum of twelve and three, then squaring the whole result is 13,286,025.",
+        "generation_info": {
+          "finish_reason": "stop"
+        },
+        "type": "ChatGenerationChunk",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessageChunk"
+          ],
+          "kwargs": {
+            "content": "The result of taking 3 to the fifth power and multiplying that by the sum of twelve and three, then squaring the whole result is 13,286,025.",
+            "example": false,
+            "additional_kwargs": {}
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": null,
+  "run": null
+}
+[32;1m[1;3m[chain/start][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 33:parser:OpenAIToolsAgentOutputParser] Entering Parser run with input:
+[0m[inputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence > 33:parser:OpenAIToolsAgentOutputParser] [0ms] Exiting Parser run with output:
+[0m{
+  "lc": 1,
+  "type": "constructor",
+  "id": [
+    "langchain",
+    "schema",
+    "agent",
+    "AgentFinish"
+  ],
+  "kwargs": {
+    "return_values": {
+      "output": "The result of taking 3 to the fifth power and multiplying that by the sum of twelve and three, then squaring the whole result is 13,286,025."
+    },
+    "log": "The result of taking 3 to the fifth power and multiplying that by the sum of twelve and three, then squaring the whole result is 13,286,025."
+  }
+}
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor > 27:chain:RunnableSequence] [1.26s] Exiting Chain run with output:
+[0m[outputs]
+[36;1m[1;3m[chain/end][0m [1m[1:chain:AgentExecutor] [4.33s] Exiting Chain run with output:
+[0m{
+  "output": "The result of taking 3 to the fifth power and multiplying that by the sum of twelve and three, then squaring the whole result is 13,286,025."
+}
+{'input': 'Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result', 'output': 'The result of taking 3 to the fifth power and multiplying that by the sum of twelve and three, then squaring the whole result is 13,286,025.'}

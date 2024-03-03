@@ -50,4 +50,74 @@ chain.invoke("What's four times five")
 
 print(chain.invoke("What's four times the number of days in January?"))
 
-# Agent for colling the tool multiple times depending on the input
+## Agent for colling the tool multiple times depending on the input
+# Prompt
+prompt = hub.pull("hwchase17/openai-tools-agent")
+print(
+    prompt.messages
+)
+
+# Tools
+@tool
+def add(first_int: int, second_int: int) -> int:
+    "Add two integers."
+    return first_int + second_int
+
+
+@tool
+def exponentiate(base: int, exponent: int) -> int:
+    "Exponentiate the base to the exponent power."
+    return base**exponent
+
+
+tools = [multiply, add, exponentiate]
+
+# Only certain models support this
+model = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0)
+
+# Construct the OpenAI Tools agent
+agent = create_openai_tools_agent(model, tools, prompt)
+
+# Create an agent executor by passing in the agent and tools
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+# set more debug output
+from langchain.globals import set_debug
+set_debug(False)
+
+
+print(
+    agent_executor.invoke(
+        {
+            "input": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result"
+        }
+    )
+)
+
+
+## Simple agent to unsertand its working
+# Tools: multiply, print
+# Task: print a*b on console
+
+
+@tool
+def print_result(result: int):
+    """Print the result to the console."""
+
+    print(result)
+
+print_prompt = hub.pull("hwchase17/openai-tools-agent")
+
+print_tools = [multiply, print_result]
+
+print_model = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0)
+
+print_agent = create_openai_tools_agent(print_model, print_tools, print_prompt)
+
+print_agent_executor = AgentExecutor(agent=print_agent, tools=print_tools, verbose=True)
+
+print_agent_executor.invoke(
+    {
+        "input": "Print 3 tim 5 on console."
+    }
+)
