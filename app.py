@@ -65,7 +65,8 @@ if submit:
 
     messages = [
         {"role": "system", "content": system_message},
-        {"role": "user", "content": user_message}
+        {"role": "user", "content": user_message},
+        {"role": "assistant", "content": "Answer: "},
     ]
 
     with st.spinner("Please wait, the AI is thinking..."):
@@ -75,7 +76,7 @@ if submit:
             temperature=0,
         )
 
-    answer = response.choices[0].message.content
+    this_query = response.choices[0].message.content
 
     prompt_tokens, completion_tokens = response.usage.prompt_tokens, response.usage.completion_tokens
 
@@ -83,26 +84,17 @@ if submit:
     # 1. Get current datetime as UTC timestamp in milliseconds
     add_token_usage_to_db(conn, cursor, prompt_tokens, completion_tokens)
 
-    # Pattern to match text between `sql\n` and closing ```
-    pattern = r"```sql\n(.*?)\n```"
-    # Using re.DOTALL to make . match newlines as well
-    match = re.search(pattern, answer, re.DOTALL)
+    # Remove the ``` from the answer
+    # this_query = answer.rstrip("```")
 
-    if match:
-        this_query = match.group(1)
-        
-        # Execute the query
-        replay = cursor.execute(this_query)
+    # Execute the query
+    replay = cursor.execute(this_query)
 
-        # print replay rowwise using st.write
-        for row in replay:
-            st.markdown(row)
+    # print replay rowwise using st.write
+    for row in replay:
+        st.markdown(row)
 
-        with st.expander("SQL Query"):
-            st.write(this_query)
-    else:
-        st.write("Errpr-")
-
-    
+    with st.expander("SQL Query"):
+        st.write(this_query)
 
     conn.close()

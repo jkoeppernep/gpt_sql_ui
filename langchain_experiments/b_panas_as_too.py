@@ -46,16 +46,22 @@ chain = (
     | (lambda input_list: multiply(input_list[0]))
 )
 
-chain.invoke("What's four times five")
+invoke_chain = False
 
-print(chain.invoke("What's four times the number of days in January?"))
+if invoke_chain:
+    print(chain.invoke("What's four times the number of days in January?"))
 
 ## Agent for colling the tool multiple times depending on the input
 # Prompt
 prompt = hub.pull("hwchase17/openai-tools-agent")
+
 print(
     prompt.messages
 )
+
+# [SystemMessagePromptTemplate(prompt=PromptTemplate(input_variables=[], 
+# template='You are a helpful assistant')), MessagesPlaceholder(variable_name='chat_history', optional=True), HumanMessagePromptTemplate(prompt=PromptTemplate(input_variables=['input'], template='{input}')), 
+# MessagesPlaceholder(variable_name='agent_scratchpad')]
 
 # Tools
 @tool
@@ -73,7 +79,11 @@ def exponentiate(base: int, exponent: int) -> int:
 tools = [multiply, add, exponentiate]
 
 # Only certain models support this
-model = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0)
+model = ChatOpenAI(
+    model="gpt-3.5-turbo-1106", 
+    temperature=0,
+    verbose=True
+)
 
 # Construct the OpenAI Tools agent
 agent = create_openai_tools_agent(model, tools, prompt)
@@ -85,14 +95,16 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 from langchain.globals import set_debug
 set_debug(False)
 
+execute_agent = False
 
-print(
-    agent_executor.invoke(
-        {
-            "input": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result"
-        }
+if execute_agent:
+    print(
+        agent_executor.invoke(
+            {
+                "input": "Take 3 to the fifth power and multiply that by the sum of twelve and three, then square the whole result"
+            }
+        )
     )
-)
 
 
 ## Simple agent to unsertand its working
@@ -110,14 +122,34 @@ print_prompt = hub.pull("hwchase17/openai-tools-agent")
 
 print_tools = [multiply, print_result]
 
-print_model = ChatOpenAI(model="gpt-3.5-turbo-1106", temperature=0)
-
-print_agent = create_openai_tools_agent(print_model, print_tools, print_prompt)
-
-print_agent_executor = AgentExecutor(agent=print_agent, tools=print_tools, verbose=True)
-
-print_agent_executor.invoke(
-    {
-        "input": "Print 3 tim 5 on console."
-    }
+print_model = ChatOpenAI(
+    model="gpt-3.5-turbo-1106", 
+    temperature=0,
+    verbose=True
 )
+
+print_agent = create_openai_tools_agent(
+    print_model, 
+    print_tools, 
+    print_prompt,
+)
+
+print_agent_executor = AgentExecutor(
+    agent=print_agent, 
+    tools=print_tools, 
+    verbose=True
+)
+
+execute_print_agent = True
+
+if execute_print_agent:
+    print(f"print_agent_executor {'-'*20}")
+
+    print_agent_executor.invoke(
+        {
+            "input": "Print 3 times 5 on console."
+        }
+    )
+
+# Next: debug https://kleiber.me/blog/2023/05/14/tracking-inspecting-prompts-langchain-agents-weights-and-biases/
+
