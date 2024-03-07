@@ -7,6 +7,12 @@ streamlit_app:
   sidebar_title: "💶Token usage"
 gpt:
   model: "gpt-3.5-turbo-0125"
+  user_message_fun_calling: |
+    Question: {question}
+  system_message_fun_calling: |
+    Please call the function cursor_execute which gets a SQL query as an argument. You can query a database with the table
+    grades with the columns names sex;bithyear;grade;class. They have the types TEXT;TEXT;INT;INT;TEXT resp.\n
+    An entry is for example ('Alex Johnson', 'M', 2001, 3, 'A')\n\n
   user_message: |
     Question: {question}\n
     Answer: 

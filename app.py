@@ -18,9 +18,17 @@ It was developed for Macomwsia seminar *NAMA*, 2024, SS.
 import streamlit as st
 from openai import OpenAI
 import re
+import ast
 
 from utilities import load_config, create_conn_and_cursor, add_token_usage_to_db, display_token_usage_in_sidebar, copy_db
 
+
+# ------------------------------
+## Parameters
+# ------------------------------
+parameters = {
+    "use_function_calling": True,
+}
 
 # ------------------------------
 ## Sesstion states
@@ -56,33 +64,77 @@ submit = st.button("Submit")
 if submit:
     conn, cursor = create_conn_and_cursor()
 
-    system_message = config["gpt"]["system_message"]
-
-    user_message = config["gpt"]["user_message"].format(question=question)
-
     # OpenAI Api ref: https://platform.openai.com/docs/api-reference/chat?lang=python
     model = config["gpt"]["model"]
 
-    messages = [
-        {"role": "system", "content": system_message},
-        {"role": "user", "content": user_message},
-        {"role": "assistant", "content": "Answer: "},
-    ]
+    if not parameters["use_function_calling"]:
+        with st.spinner("Please wait, the AI is thinking..."):
+            system_message = config["gpt"]["system_message"]
 
-    with st.spinner("Please wait, the AI is thinking..."):
-        response = client.chat.completions.create(
-            model=model,
-            messages=messages,
-            temperature=0,
-        )
+            user_message = config["gpt"]["user_message"].format(question=question)
 
-    this_query = response.choices[0].message.content
+            messages = [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": user_message},
+                {"role": "assistant", "content": "Answer: "},
+            ]
 
-    prompt_tokens, completion_tokens = response.usage.prompt_tokens, response.usage.completion_tokens
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                temperature=0,
+            )
 
-    # add token usage to datablase
-    # 1. Get current datetime as UTC timestamp in milliseconds
-    add_token_usage_to_db(conn, cursor, prompt_tokens, completion_tokens)
+        this_query = response.choices[0].message.content
+
+        st.write(this_query)
+
+        prompt_tokens, completion_tokens = response.usage.prompt_tokens, response.usage.completion_tokens
+
+        # add token usage to datablase
+        # 1. Get current datetime as UTC timestamp in milliseconds
+        add_token_usage_to_db(conn, cursor, prompt_tokens, completion_tokens)
+    else:
+        # See docu ai https://platform.openai.com/docs/guides/function-calling
+        
+        with st.spinner("Please wait, the AI is thinking..."):
+            tools = [
+                {
+                    "type": "function",
+                    "function": {
+                        "name": "cursor_execute",
+                        "description": "Executes a SQL query on a database and returns the result.",
+                        "parameters": {
+                            "type": "object",
+                            "properties": {
+                                "operation": {
+                                    "type": "string",
+                                    "description": "A string that contains a SQL query. The function is offered by sqlite3.connect().cursor()",
+                                }
+                            },
+                            "required": ["operation"],
+                        },
+                    },
+                }
+            ]
+
+            system_message = config["gpt"]["system_message_fun_calling"]
+
+            user_message = config["gpt"]["user_message_fun_calling"].format(question=question)
+
+            messages = [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": user_message},
+            ]
+
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo-0125",
+                messages=messages,
+                tools=tools,
+                tool_choice="auto",  # auto is default, but we'll be explicit
+            )
+
+        this_query = ast.literal_eval(response.choices[0].message.tool_calls[0].function.arguments)["operation"]
 
     # Remove the ``` from the answer
     # this_query = answer.rstrip("```")
